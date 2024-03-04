@@ -16,7 +16,7 @@ import pysolr
 from ckan.common import config
 
 
-from ckan.lib.serch.solr.common import SearchIndexError, make_connection
+from ckan.lib.search.solr.common import SearchIndexError, make_connection
 import ckan.model as model
 from ckan.plugins import (PluginImplementations,
                           IPackageController)
