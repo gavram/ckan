@@ -24,15 +24,15 @@ from ckan.lib.search.solr.common import (
     make_connection, SearchIndexError, SearchQueryError,  # type: ignore
     SearchError, is_available, SearchEngineSettings, config
 )
-from ckan.lib.search.index import (
+from ckan.lib.search.solr.index import (
     SearchIndex, PackageSearchIndex, NoopSearchIndex
 )
-from ckan.lib.search.query import (
+from ckan.lib.search.solr.query import (
     SearchQuery,
     TagSearchQuery, ResourceSearchQuery, PackageSearchQuery,
-    QueryOptions, convert_legacy_parameters_to_solr  # type: ignore
+    QueryOptions, convert_legacy_parameters_to_solr, solr_literal  # type: ignore
 )
-from ckan.lib.search.index import SearchIndex
+from ckan.lib.search.solr.index import SearchIndex
 
 
 log = logging.getLogger(__name__)
