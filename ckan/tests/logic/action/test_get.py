@@ -11,7 +11,7 @@ import ckan.logic.schema as schema
 import ckan.tests.factories as factories
 import ckan.tests.helpers as helpers
 from ckan import __version__
-from ckan.lib.search.common import SearchError
+from ckan.lib.search import SearchError
 
 
 @pytest.mark.usefixtures("non_clean_db")
