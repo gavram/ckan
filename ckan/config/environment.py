@@ -186,7 +186,7 @@ def update_config() -> None:
     # from ckan.lib.search import SolrSettings, check_solr_schema_version
 
     # lib.search is imported here as we need the config enabled and parsed
-    search.SolrSettings.init(config.get('solr_url'),
+    search.SearchEngineSettings.init(config.get('solr_url'),
                              config.get('solr_user'),
                              config.get('solr_password'))
     search.check_solr_schema_version()
