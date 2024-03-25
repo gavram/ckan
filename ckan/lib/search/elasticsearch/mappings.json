@@ -1,0 +1,300 @@
+{
+    "settings": {
+      "analysis": {
+        "tokenizer": {
+          "ngram_tokenizer": {
+            "type": "ngram",
+            "min_gram": 2,
+            "max_gram": 10
+          },
+          "whitespace_tokenizer": {
+            "type": "whitespace"
+          }
+        },
+        "filter": {
+          "ckan_english_stop": {
+            "type": "stop",
+            "stopwords": "_english_"
+          },
+          "ckan_english_stemmer": {
+            "type": "stemmer",
+            "language": "english"
+          },
+          "ckan_english_possessive_stemmer": {
+            "type": "stemmer",
+            "language": "possessive_english"
+          },
+          "ckan_word_delimiter": {
+            "type": "word_delimiter_graph",
+            "generate_word_parts": true,
+            "generate_number_parts": true,
+            "catenate_words": true,
+            "catenate_numbers": true,
+            "catenate_all": false,
+            "split_on_case_change": true
+          },
+          "ckan_asciifolding": {
+            "type": "asciifolding",
+            "preserve_original": true
+          },
+          "lowercase": {
+            "type": "lowercase"
+          },
+          "ckan_synonym_filter": {
+            "type": "synonym_graph",
+            "synonyms_path": "synonyms.txt",
+            "ignore_case": true,
+            "expand": true
+          }
+        },
+        "analyzer": {
+          "ckan_ngram_analyzer": {
+            "type": "custom",
+            "tokenizer": "ngram_tokenizer",
+            "filter": [
+              "lowercase"
+            ]
+          },
+          "ckan_index_analyzer": {
+            "type": "custom",
+            "tokenizer": "whitespace_tokenizer",
+            "filter": [
+              "ckan_word_delimiter",
+              "lowercase",
+              "ckan_english_stemmer",
+              "ckan_english_possessive_stemmer",
+              "ckan_asciifolding"
+            ]
+          },
+          "ckan_query_analyzer": {
+            "type": "custom",
+            "tokenizer": "whitespace_tokenizer",
+            "filter": [
+              "ckan_word_delimiter",
+              "lowercase",
+              "ckan_english_stemmer",
+              "ckan_english_possessive_stemmer",
+              "ckan_asciifolding",
+              "ckan_synonym_filter"
+            ]
+          },
+          "ckan_text_general_index_analyzer": {
+            "tokenizer": "whitespace_tokenizer",
+            "filter": [
+              "ckan_word_delimiter",
+              "lowercase"
+            ]
+          },
+          "ckan_text_general_query_analyzer": {
+            "tokenizer": "whitespace_tokenizer",
+            "filter": [
+              "ckan_synonym_filter",
+              "ckan_word_delimiter",
+              "lowercase"
+            ]
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "index_id": {
+          "type": "keyword"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "site_id": {
+          "type": "keyword"
+        },
+        "title": {
+          "type": "text",
+          "analyzer": "ckan_index_analyzer",
+          "search_analyzer": "ckan_query_analyzer"
+        },
+        "title_ngram": {
+          "type": "text",
+          "analyzer": "ckan_ngram_analyzer"
+        },
+        "entity_type": {
+          "type": "keyword"
+        },
+        "dataset_type": {
+          "type": "keyword"
+        },
+        "state": {
+          "type": "keyword"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "name_ngram": {
+          "type": "text",
+          "analyzer": "ckan_ngram_analyzer"
+        },
+        "revision_id": {
+          "type": "keyword"
+        },
+        "version": {
+          "type": "keyword"
+        },
+        "url": {
+          "type": "keyword"
+        },
+        "ckan_url": {
+          "type": "keyword"
+        },
+        "download_url": {
+          "type": "keyword"
+        },
+        "notes": {
+          "type": "text",
+          "analyzer": "ckan_text_general_index_analyzer",
+          "search_analyzer": "ckan_text_general_query_analyzer"
+        },
+        "author": {
+          "type": "text",
+          "analyzer": "ckan_text_general_index_analyzer",
+          "search_analyzer": "ckan_text_general_query_analyzer"
+        },
+        "author_email": {
+          "type": "text",
+          "analyzer": "ckan_text_general_index_analyzer",
+          "search_analyzer": "ckan_text_general_query_analyzer"
+        },
+        "maintainer": {
+          "type": "text",
+          "analyzer": "ckan_text_general_index_analyzer",
+          "search_analyzer": "ckan_text_general_query_analyzer"
+        },
+        "maintainer_email": {
+          "type": "text",
+          "analyzer": "ckan_text_general_index_analyzer",
+          "search_analyzer": "ckan_text_general_query_analyzer"
+        },
+        "license": {
+          "type": "keyword"
+        },
+        "license_id": {
+          "type": "keyword"
+        },
+        "tags": {
+          "type": "keyword",
+          "norms": false,
+          "index": true,
+          "store": true,
+          "multi": true
+        },
+        "groups": {
+          "type": "keyword",
+          "multi": true
+        },
+        "organization": {
+          "type": "keyword"
+        },
+        "capacity": {
+          "type": "keyword"
+        },
+        "permission_labels": {
+          "type": "keyword",
+          "index": true,
+          "store": false,
+          "multi": true
+        },
+        "res_name": {
+          "type": "text",
+          "analyzer": "ckan_text_general_index_analyzer",
+          "search_analyzer": "ckan_text_general_query_analyzer",
+          "multi": true
+        },
+        "res_description": {
+          "type": "text",
+          "analyzer": "ckan_text_general_index_analyzer",
+          "search_analyzer": "ckan_text_general_query_analyzer",
+          "multi": true
+        },
+        "res_format": {
+          "type": "keyword",
+          "multi": true
+        },
+        "res_url": {
+          "type": "keyword",
+          "multi": true
+        },
+        "res_type": {
+          "type": "keyword",
+          "multi": true
+        },
+        "metadata_created": {
+          "type": "date"
+        },
+        "metadata_modified": {
+          "type": "date"
+        },
+        "indexed_ts": {
+          "type": "date"
+        },
+        "dynamic_templates": [
+          {
+            "dates_template": {
+              "match_pattern": "regex",
+              "match": ".*_date$",
+              "mapping": {
+                "type": "date"
+              }
+            }
+          },
+          {
+            "extras_template": {
+              "match": "extras_*",
+              "mapping": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              }
+            }
+          },
+          {
+            "res_extras_template": {
+              "match": "res_extras_*",
+              "mapping": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              }
+            }
+          },
+          {
+            "vocab_template": {
+              "match": "vocab_*",
+              "mapping": {
+                "type": "keyword"
+              }
+            }
+          },
+          {
+            "strings_default_template": {
+              "match_mapping_type": "string",
+              "mapping": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
