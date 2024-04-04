@@ -30,7 +30,8 @@ from ckan.lib.search.solr.index import (
 from ckan.lib.search.solr.query import (
     SearchQuery,
     TagSearchQuery, ResourceSearchQuery, PackageSearchQuery,
-    QueryOptions, convert_legacy_parameters_to_solr, solr_literal  # type: ignore
+    QueryOptions, convert_legacy_parameters_to_solr, solr_literal,
+    _get_local_query_parser  # type: ignore
 )
 from ckan.lib.search.solr.index import SearchIndex
 

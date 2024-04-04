@@ -27,14 +27,14 @@ def _get_search_backend():
     except AttributeError as exc:
         raise ValueError(f'Search class for backend "{search_backend}" not found in the module.') from exc
 
+
 search_backend = _get_search_backend()
 search_module = importlib.import_module(f'ckan.lib.search.{search_backend}')
 
 
 def import_module_attributes(module, global_ns):
     for attribute_name in dir(module):
-        if not attribute_name.startswith('_'):
-            global_ns[attribute_name] = getattr(module, attribute_name)
+        global_ns[attribute_name] = getattr(module, attribute_name)
 
 
 import_module_attributes(search_module, globals())
